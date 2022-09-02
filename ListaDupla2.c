@@ -68,6 +68,21 @@ int insere_ordenado(){
     
 }
 
+int verifica_valor(Lista *lista, int valor){
+    if(lista == NULL){
+        return 0;    
+    }
+    Lista *aux;
+    aux = aloca_lista();
+    aux = lista->inicio;
+    while(aux != NULL){
+        if(aux->valor == valor){
+            return 1;
+        }
+        aux = aux->proximo;
+    }
+}
+
 void mostra_lista(Lista *lista){
     
     if(lista == NULL){
@@ -125,6 +140,7 @@ int main(int argc, char const *argv[]){
     insere_fim(lista,43);
     mostra_lista(lista);
     mostra_lista_invertida(lista);
+    printf("%d", verifica_valor(lista,94));
     return 0;
 }
 
