@@ -82,6 +82,84 @@ int verifica_valor(Lista *lista, int valor){
         aux = aux->proximo;
     }
 }
+int remover_inicio(Lista *lista,int dado){
+
+    Lista *atual,*proximo,*anterior;
+
+    if(lista->inicio == NULL){
+        return 0;
+    }else{
+        atual = lista->inicio;
+        while(atual != NULL){
+            proximo = atual->proximo;
+            anterior = atual->anterior;
+            if(atual->valor == dado){
+                if(anterior != NULL){
+                    if(proximo !=  NULL){
+                        anterior->proximo = atual->proximo;
+                        proximo->anterior = anterior;
+                        free(atual);
+                        break;
+                    }else{
+                        anterior->proximo = NULL;
+                        atual->fim = anterior;
+                        free(atual);
+                        break;
+                    }
+                }else{
+                    if(proximo !=  NULL){
+                        proximo->anterior = NULL;
+                        atual->inicio = proximo;        
+                        free(atual);
+                        break;
+                    }else{
+                        free(atual);
+                    }
+                }
+            }else{
+                atual = atual->proximo;
+            }
+        }
+    }
+}
+int remove_valor(Lista *lista, int valor){
+    if(lista == NULL){
+        return 0;    
+    }
+    Lista *aux;
+    aux = aloca_lista();
+    aux = lista->inicio;
+    while(aux != NULL){
+        if(aux->valor = valor){
+            if(aux->anterior != NULL){
+                if(aux->proximo != NULL){
+                    aux->anterior->proximo = aux->proximo;
+                    aux->proximo->anterior = aux->anterior;
+                    free(aux);
+                    break;
+                }else{
+                    aux->anterior->proximo = NULL;
+                    aux->fim = aux->anterior;
+                    free(aux);
+                    break;
+                }
+            }else{
+                if(aux->proximo != NULL){
+                    aux->proximo->anterior = NULL;
+                    aux->inicio = aux->proximo;
+                    free(aux);
+                    break;
+                }else{
+                    free(aux);
+                }
+            }
+        }else{
+            aux = aux->proximo;
+        }
+        
+    }
+    return 0;
+}
 
 void mostra_lista(Lista *lista){
     
@@ -140,7 +218,10 @@ int main(int argc, char const *argv[]){
     insere_fim(lista,43);
     mostra_lista(lista);
     mostra_lista_invertida(lista);
-    printf("%d", verifica_valor(lista,94));
+    printf("%d\n", verifica_valor(lista,122));
+    printf("%d\n", verifica_valor(lista,69));
+    remover_inicio(lista,13);
+    mostra_lista(lista);
     return 0;
 }
 
