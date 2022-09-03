@@ -35,7 +35,7 @@ void dfs(vertice * vertices, int qtd_vertices, int raiz, int distancia){
 }
 int main(int argc, char const *argv[]){
 
-    int qtd_paises;         //vertices
+    int qtd_vertices;         //vertices
     int qtd_estradas;       // arestas
     int qtd_gurias;         
     int bishu = 1;
@@ -45,17 +45,17 @@ int main(int argc, char const *argv[]){
     
 
     //printf("Digite a quantidade de paÃ­ses: ");
-    scanf("%d", &qtd_paises);
-    vertices = (vertice*)calloc(qtd_paises+1,sizeof(vertice));
+    scanf("%d", &qtd_vertices);
+    vertices = (vertice*)calloc(qtd_vertices+1,sizeof(vertice));
     //printf("Digite as estradas:\n");
-    for(i = 0; i < qtd_paises -1; i++){
+    for(i = 0; i < qtd_vertices -1; i++){
         scanf("%d %d",&u,&v);
         vertices[u].lista_adj[vertices[u].tam_lista_adj] = v;
         vertices[u].tam_lista_adj++;
         vertices[u].lista_adj[vertices[v].tam_lista_adj] = u;
         vertices[u].tam_lista_adj++;
     }
-    dfs(vertices,qtd_paises,1,0);
+    dfs(vertices,qtd_vertices,1,0);
     //printf("\n%d",qtd_cc);
     //printf("Digite a quantidade de garotas: ");
     scanf("%d", &q);
@@ -64,7 +64,7 @@ int main(int argc, char const *argv[]){
         scanf("%d", &x);
     }
     printf("Mostrando distancias\n");
-    for(i = 0; i < qtd_paises ; i++){
+    for(i = 0; i < qtd_vertices ; i++){
         printf("%d",vertices[i].distancia);
     }
     
