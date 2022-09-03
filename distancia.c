@@ -12,10 +12,10 @@ typedef struct vertice{
 void mostrar_tudo (vertice * vertices, int qtd_vertices){
     int i,j;
     for(i=1;i<=qtd_vertices;i++){
-        printf("\n Vertice: %d",i);
-        printf("\n Lista de adjacencias: ");
+        //printf("\n Vertice: %d",i);
+        //printf("\n Lista de adjacencias: ");
         for(j=0;j<vertices[i].tam_lista_adj;j++){
-            printf("%d ",vertices[i].lista_adj[j]);
+            //printf("%d ",vertices[i].lista_adj[j]);
         }
     }
 }
@@ -24,14 +24,14 @@ void dfs(vertice * vertices, int qtd_vertices, int raiz, int distancia){
     if (vertices[raiz].visitado!=0){
         return;
     }
-    // printf("\n %d",raiz);
-    vertices[raiz].visitado=1;
+    // //printf("\n %d",raiz);
+    vertices[raiz].visitado = 1;
+    vertices[raiz].distancia = distancia;
     for(i=0;i<vertices[raiz].tam_lista_adj;i++){
         if (vertices[vertices[raiz].lista_adj[i]].visitado==0){
-            dfs(vertices,qtd_vertices,vertices[raiz].lista_adj[i],distancia);
+            dfs(vertices,qtd_vertices,vertices[raiz].lista_adj[i],distancia+1);
         }
     }
-    vertices[raiz].distancia++;
 }
 int main(int argc, char const *argv[]){
 
@@ -44,10 +44,10 @@ int main(int argc, char const *argv[]){
     vertice *vertices;
     
 
-    printf("Digite a quantidade de países: ");
+    //printf("Digite a quantidade de paÃ­ses: ");
     scanf("%d", &qtd_paises);
     vertices = (vertice*)calloc(qtd_paises+1,sizeof(vertice));
-    Printf("Digite as estradas:\n");
+    //printf("Digite as estradas:\n");
     for(i = 0; i < qtd_paises -1; i++){
         scanf("%d %d",&u,&v);
         vertices[u].lista_adj[vertices[u].tam_lista_adj] = v;
@@ -55,16 +55,11 @@ int main(int argc, char const *argv[]){
         vertices[u].lista_adj[vertices[v].tam_lista_adj] = u;
         vertices[u].tam_lista_adj++;
     }
-    for(i=1;i<=qtd_paises;i++){
-        if (vertices[i].visitado==0){
-            dfs(vertices,qtd_paises,i,0);
-            qtd_cc++;
-        }
-    }
-    printf("\n%d",qtd_cc);
-    printf("Digite a quantidade de garotas: ");
+    dfs(vertices,qtd_paises,1,0);
+    //printf("\n%d",qtd_cc);
+    //printf("Digite a quantidade de garotas: ");
     scanf("%d", &q);
-    printf("Digite as cidades das garotas:\n");
+    //printf("Digite as cidades das garotas:\n");
     for(i = 0; i < q; i++){
         scanf("%d", &x);
     }
@@ -83,8 +78,8 @@ int main(){
     int i,a,b,qtd_cc=0;
     vertice * vertices;
     scanf("%d %d",&qtd_vertices, &qtd_arestas);
-    // printf("\n Quantidade de vertices: %d ",qtd_vertices);
-    // printf("\n Quantidade de arestas: %d\n",qtd_arestas);
+    // //printf("\n Quantidade de vertices: %d ",qtd_vertices);
+    // //printf("\n Quantidade de arestas: %d\n",qtd_arestas);
     vertices = (vertice*)calloc(qtd_vertices+1,sizeof(vertice));
     for(i=0;i<qtd_arestas;i++){
         scanf("%d %d",&a,&b);
@@ -100,8 +95,7 @@ int main(){
             qtd_cc++;
         }
     }
-    printf("\n%d",qtd_cc);
+    //printf("\n%d",qtd_cc);
     // dfs(vertices,qtd_vertices,1);
     return 0;
 }*/
-
