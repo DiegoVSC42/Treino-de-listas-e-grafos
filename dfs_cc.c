@@ -28,7 +28,6 @@ typedef struct Vertice{
 Vertice *aloca_vertice(int N){
     Vertice *vertice;
     vertice = (Vertice*)calloc(N+1,sizeof(Vertice));
-    int qtd_arestas = 0;
     return vertice;
 }
 
