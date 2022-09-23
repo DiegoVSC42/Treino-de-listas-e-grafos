@@ -63,6 +63,7 @@ int main(){
             insere_aresta(vertice,origem,destino);
         }
         printf("Scenario #%d\n",i+1);
+        //falta uma flag pra ficar percorrendo varios cc
         if(dfs(vertice,1,1)){
             printf("No suspicious bugs found!\n");
         }else{
