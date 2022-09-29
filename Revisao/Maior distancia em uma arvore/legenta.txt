@@ -1,0 +1,29 @@
+https://www.spoj.com/problems/PT07Z/
+
+dada uma arvore bidirecional e sem peso, escreva um programa que diga a maior distancia entre dois nós desta arvore.
+a entrada consiste em
+a primeira linha tem o valor da quantidade de vertices(N)
+as proximas (N-1) linhas sao referentes as arestas
+
+exemplo de entrada
+
+3
+1 2
+2 3
+
+qtd_vertices    =   3
+qtd_arestas     =   2
+origem          =   [1 2]
+destino         =   [2 3]
+
+output          =   2
+
+entre 1 e 3 há duas arestas
+
+You are given an unweighted, undirected tree. Write a program to output the length of the longest path (from one node to another) in that tree. The length of a path in this case is number of edges we traverse from source to destination.
+
+Input
+The first line of the input file contains one integer N --- number of nodes in the tree (0 < N <= 10000). Next N-1 lines contain N-1 edges of that tree --- Each line contains a pair (u, v) means there is an edge between node u and node v (1 <= u, v <= N).
+
+Output
+Print the length of the longest path on one line.
