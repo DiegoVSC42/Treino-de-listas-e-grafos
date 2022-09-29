@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Vertice{
+    int lista_adj[1000];
+    int tam_lista;
+    int visitado;
+    int pai;
+    int distancia;
+}Vertice;
+
+Vertice *aloca_vertice(int qtd_vertices){
+    Vertice *vertice;
+    vertice = (Vertice*)calloc(qtd_vertices + 1, sizeof(Vertice));
+    vertice->tam_lista = 0;
+    vertice->visitado = 0;
+    vertice->pai = 0;
+    return vertice;
+}
+
+typedef struct Fila{
+    int valor[1000];
+    int fim;
+}Fila;
+
+Fila *inicializa_fila(qtd_arestas){
+    Fila *fila = (Fila*)calloc(qtd_arestas + 1, sizeof(Fila));
+    for(int i = 0; i < 1000 ; i++){
+        fila->valor[i] = 0;
+    }
+    fila->fim = 0;
+    return fila;
+}
+void insere_fila(Fila *fila,int valor){
+    if(fila->fim == 1000){
+        printf("Fila cheia \n");
+        return;
+    }
+    fila->valor[fila->fim] = valor;
+    fila->fim++;
+
+}
+int remove_fila(Fila *fila){
+    int valor;
+    if(fila->fim == 0){
+        printf("Fila cheia\n");
+        return;
+    }
+    valor = fila->valor[0];
+    for(int i = 0; i < fila->fim; i++){
+        fila->valor[i] = fila->valor[i+1];
+    }
+    fila->fim--;
+    return valor;
+}
+void insere_aresta(Vertice *vertice, int origem, int destino){
+    vertice[origem].lista_adj[vertice[origem].tam_lista] = destino;
+    vertice[origem].tam_lista++;
+    vertice[destino].lista_adj[vertice[destino].tam_lista] = origem;
+    vertice[destino].tam_lista++;
+}
+
+void bfs(Vertice *vertice, int raiz, int qtd_vertices,Fila *fila){
+    for(int i = 0; i < qtd_vertices; i++){
+        vertice[i].distancia = -1;
+        vertice[i].pai = -1;
+    }
+    vertice[raiz].distancia = 0;
+    vertice[raiz].pai = raiz;
+    insere_fila(fila,raiz);
+    while(fila->fim != 0){
+        int aux = remove_fila(fila);
+    }   
+}
+int main(int argc, char const *argv[]){
+
+    
+    return 0;
+}
+
