@@ -43,14 +43,18 @@ int main(int argc, char const *argv[]){
     int *gurias;
     int raiz = 1;
     int guria_proxima;
-    gurias = (int*)calloc(qtd_gurias,sizeof(int));
+    int distancia = 0;
+
     scanf("%d",&qtd_vertices);
     qtd_arestas = qtd_vertices-1;
     vertice = aloca_vertice(qtd_vertices);
     for(int i = 0; i < qtd_arestas; i++){
         scanf("%d %d",&origem, &destino);
+        insere_aresta(vertice,origem,destino);
     }
+    dfs(vertice,raiz,distancia);
     scanf("%d", &qtd_gurias);
+    gurias = (int*)calloc(qtd_gurias,sizeof(int));
     for(int i = 0; i < qtd_gurias; i++){
         scanf("%d",&gurias[i]);
     }
