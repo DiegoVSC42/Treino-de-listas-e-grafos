@@ -2,7 +2,14 @@
 #include <stdlib.h>
 
 int compare(const void *a, const void *b){
-    return ( *(int*)a - *(int*)b );
+    //se trocar a e b de lugar na hora de colocar os parametros
+    //o algoritimo ordena de forma decrescente
+    if(*(int*)a > *(int*)b) 
+        return 1;
+    if(*(int*)a < *(int*)b)
+        return -1;
+    if(*(int*)a == *(int*)b)
+        return 0;
 }
 
 int main(int argc, char const *argv[]){
