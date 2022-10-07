@@ -19,14 +19,20 @@ void insere_aresta(Vertice *vertice, int origem, int destino){
 }
 //insertion sort
 void ordena_grafo(Vertice *vertice,int qtd_vertices){
-    int i,j,k,aux;
+    int i,j,k,atual;
+    //somente para o grafo
     for(i = 1; i <= qtd_vertices; i++){
+        //vai do inicio ate o final da lista
         for(j = 1 ; j < vertice[i].tamanho_lista; j++){
-            aux = vertice[i].lista_adj[j];
-            for(k = j - 1 ; k >= 0 && aux < vertice[i].lista_adj[k]; k--){
+            //adiciona o vertice atual a uma variavel auxiliar
+            atual = vertice[i].lista_adj[j];
+            //verifica se o vertice atual é menor que o indice anterior ao atual
+            for(k = j - 1 ; k >= 0 && atual < vertice[i].lista_adj[k]; k--){
+                //se for ele troca os dois de lugar
                 vertice[i].lista_adj[k+1] = vertice[i].lista_adj[k]; 
             }
-            vertice[i].lista_adj[k+1] = aux; 
+            //coloca o valor que foi substituido no seu lugar correto
+            vertice[i].lista_adj[k+1] = atual; 
         }
     }
 }
