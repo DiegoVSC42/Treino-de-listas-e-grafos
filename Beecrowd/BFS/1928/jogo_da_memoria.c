@@ -1,18 +1,18 @@
 /*
-https://www.beecrowd.com.br/judge/pt/problems/view/1692
+https://www.beecrowd.com.bgcr/judge/pt/problems/view/1928
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct Vertice{
-    int visitado;
-    int distancia;
-    int valor;
-    int tamanho_lista;
-    int lista_adj[50000];
+    long int visitado;
+    long int distancia;
+    long int valor;
+    long int tamanho_lista;
+    long int lista_adj[500000];
 }Vertice;
 
-Vertice *aloca_vertice(int qtd_vertices){
+Vertice *aloca_vertice(long int qtd_vertices){
     Vertice *vertice;
     vertice = (Vertice*)calloc(qtd_vertices+1,sizeof(Vertice));
     vertice->visitado = 0;
@@ -22,17 +22,17 @@ Vertice *aloca_vertice(int qtd_vertices){
     return vertice;
 }
 typedef struct Fila{
-    int tamanho;
+    long int tamanho;
     struct Elemento *inicio;
     struct Elemento *fim;
 }Fila;
 
 typedef struct Elemento{
-    int valor;
+    long int valor;
     struct Elemento *prox;
 }Elemento;
 
-void push(Fila *fila, int valor){
+void push(Fila *fila, long int valor){
     Elemento *novo;
     novo = (Elemento*)calloc(1,sizeof(Elemento));
     novo->valor = valor;
@@ -45,8 +45,8 @@ void push(Fila *fila, int valor){
     }
     fila->tamanho++;
 }
-int pop(Fila *fila){
-    int retorno;
+long int pop(Fila *fila){
+    long int retorno;
     if(fila->tamanho == 0){
         return -1;
     }else{
@@ -56,23 +56,23 @@ int pop(Fila *fila){
     }
     return retorno;
 }
-void insere_aresta(Vertice *vertice, int origem, int destino){
+void insere_aresta(Vertice *vertice, long int origem, long int destino){
     vertice[origem].lista_adj[vertice[origem].tamanho_lista] = destino;
     vertice[origem].tamanho_lista++;
     vertice[destino].lista_adj[vertice[destino].tamanho_lista] = origem;
     vertice[destino].tamanho_lista++;
 }
 
-void bfs(Vertice *vertice,int raiz){
+void bfs(Vertice *vertice,long int raiz){
     Fila *fila;
     fila = (Fila*)calloc(1,sizeof(Fila));
-    int atual;
-    int filho;
+    long int atual;
+    long int filho;
     push(fila,raiz);
     while(fila->tamanho > 0){
         atual = pop(fila);
         vertice[atual].visitado = 1;
-        for(int i = 0 ; i < vertice[atual].tamanho_lista;i++){
+        for(long int i = 0 ; i < vertice[atual].tamanho_lista;i++){
             filho = vertice[atual].lista_adj[i];
             if(vertice[filho].visitado == 0){
                 vertice[filho].distancia = vertice[atual].distancia+1;
@@ -82,87 +82,91 @@ void bfs(Vertice *vertice,int raiz){
     }
 }
 
-void mostrar_tudo(Vertice *vertices, int qtd_vertices)
+void mostrar_tudo(Vertice *vertice, long int qtd_vertices)
 {
-    int i, j;
+    long int i, j;
 
     for (i = 1; i <= qtd_vertices; i++)
     {
-        printf("\n Vertice: %d", i);
-        printf("\n Valor : %d", vertices[i].valor);
-        printf("\n Lista de adjacencias: ");
-
-        for (j = 0; j < vertices[i].tamanho_lista; j++)
+        printf("\n Vertice:     %li", i);
+        printf("\n Valor :      %li", vertice[i].valor);
+        printf("\n Distancia :  %li",vertice[i].distancia);
+        printf("\n Lista:       ");
+        for (j = 0; j < vertice[i].tamanho_lista; j++)
         {
-            printf("%d ", vertices[i].lista_adj[j]);
+            printf("%li ", vertice[i].lista_adj[j]);
         }
+        printf("\n");
     }
     printf("\n");
 }
 
-int main(int argc, char const *argv[]){
+long int main(long int argc, char const *argv[]){
     Vertice *vertice;
-    int qtd_cartas;
-    int *vetor_cartas;
-    int qtd_vertices, qtd_arestas;
-    int origem, destino;
-    int max_pontos = 0;
-    int *vet_origem, *vet_destino;
-    int *vet_dist;
-    scanf("%d",&qtd_cartas);
-    vetor_cartas = (int*)calloc(qtd_cartas+1,sizeof(int));
+    long int qtd_cartas;
+    long int *vetor_cartas;
+    long int qtd_vertices, qtd_arestas;
+    long int origem, destino;
+    long int max_pontos = 0;
+    long int *vet_origem, *vet_destino;
+    long int *vet_dist;
+    long int aux,raiz;
+    scanf("%li",&qtd_cartas);
+    vetor_cartas = (long int*)calloc(qtd_cartas+1,sizeof(long int));
     qtd_vertices = qtd_cartas;
     
-    for(int i = 1 ; i <= qtd_cartas ; i++){
-        scanf("%d",&vetor_cartas[i]);
+    for(long int i = 1 ; i <= qtd_cartas ; i++){
+        scanf("%li",&vetor_cartas[i]);
     }
     qtd_arestas = qtd_vertices - 1;
-    vet_origem  = (int*)calloc(qtd_arestas,sizeof(int));
-    vet_destino = (int*)calloc(qtd_arestas,sizeof(int));
-    for(int i = 0 ; i < qtd_arestas ; i++){
-        scanf("%d %d",&origem,&destino);
+    vet_origem  = (long int*)calloc(qtd_arestas,sizeof(long int));
+    vet_destino = (long int*)calloc(qtd_arestas,sizeof(long int));
+    for(long int i = 0 ; i < qtd_arestas ; i++){
+        scanf("%li %li",&origem,&destino);
         vet_origem[i] = origem;
         vet_destino[i] = destino;
     }
-    vet_dist = (int*)calloc(qtd_cartas+1,sizeof(int));
+    vet_dist = (long int*)calloc(qtd_cartas+1,sizeof(long int));
     
-    for(int i = 1; i <= qtd_cartas/2;i++){
+    for(long int i = 1; i <= qtd_cartas/2;i++){
         vertice = aloca_vertice(qtd_vertices);
-        for(int j = 0 ; j < qtd_arestas; j++){
+        for(long int j = 0 ; j < qtd_arestas; j++){
             insere_aresta(vertice,vet_origem[j],vet_destino[j]);
         }
-        for(int k = 1 ; k <= qtd_vertices; k++){
+        for(long int k = 1 ; k <= qtd_vertices; k++){
             vertice[k].valor = vetor_cartas[k];
         }
         
-        mostrar_tudo (vertice,qtd_vertices);
-        
-        bfs(vertice,i);
-        
-        for(int j=1;j<=qtd_vertices;j++)
-        {
-            printf("\n Distancia do vertice %d para a raiz %d = %d",j,i,vertice[j].distancia);
-        }
-        printf("\n");
-        
-        for(int j = 1 ; j <= qtd_vertices;j++){
-            if (vertice[j].valor == vertice[i].valor){
-                vet_dist[i] = vertice[j].distancia;
-                printf("\nENTREI %d\n",i);
+        for(long int j = 1; j <= qtd_vertices; j++){
+            if(vertice[j].valor == i){
+                raiz = j;
             }
         }
+
+        bfs(vertice,raiz);
+        /*
+        printf("\n\nRAIZ: %li\n",raiz);
+        mostrar_tudo (vertice,qtd_vertices);
+        */
         
-        printf("\nDISTANCIA");
-        for(int j = 1; j <= qtd_cartas;j++){
-            printf(" %d",vet_dist[j]);
+        for(long int j = 1 ; j<= qtd_vertices ;j++){
+            if(vertice[j].valor == vertice[raiz].valor){
+                vet_dist[i] = vertice[j].distancia;
+                break;
+            }
         }
-        
+        /*
+        printf("\nDISTANCIA");
+        for(long int j = 1; j <= qtd_cartas;j++){
+            printf(" %li",vet_dist[j]);
+        }
+        */
     }
 
-    for(int i = 1 ; i <= qtd_cartas/2;i++){
+    for(long int i = 1 ; i <= qtd_cartas/2;i++){
         max_pontos = max_pontos + vet_dist[i];
     }
-    printf("\n%d",max_pontos);
+    printf("%li",max_pontos);
     printf("\n");
     return 0;
 }
