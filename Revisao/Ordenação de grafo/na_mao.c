@@ -17,14 +17,14 @@ void insere_aresta(Vertice *vertice, int origem, int destino){
     vertice[destino].lista_adj[vertice[destino].tamanho_lista] = origem;
     vertice[destino].tamanho_lista++;
 }
+//insertion sort
 void ordena_grafo(Vertice *vertice,int qtd_vertices){
     int i,j,k,aux;
     for(i = 1; i <= qtd_vertices; i++){
         for(j = 1 ; j < vertice[i].tamanho_lista; j++){
             aux = vertice[i].lista_adj[j];
-            for(k = j - 1 ; k >= 0; k--){
-                if(aux < vertice[i].lista_adj[k])
-                    vertice[i].lista_adj[k+1] = vertice[i].lista_adj[k]; 
+            for(k = j - 1 ; k >= 0 && aux < vertice[i].lista_adj[k]; k--){
+                vertice[i].lista_adj[k+1] = vertice[i].lista_adj[k]; 
             }
             vertice[i].lista_adj[k+1] = aux; 
         }
