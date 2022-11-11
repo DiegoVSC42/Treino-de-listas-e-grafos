@@ -1,0 +1,31 @@
+https://www.hackerearth.com/pt-br/problem/algorithm/connected-components-in-a-graph/
+
+Os grafos estao na seguinte forma
+
+Os primeiros 2 valores sao referentes a quantidade de vertices e arestas
+em seguida sao passados a origem e o destino das arestas
+ou seja:
+
+qtd_vertices qtd_arestas
+origem destino
+
+Exemplo
+
+4 3
+1 2
+2 3
+1 3
+
+qtd_vertices    =   4
+qtd_arestas     =   3
+origem          =   [1 2 1]
+destino         =   [2 3 3]
+
+output          =   3
+
+a saída deve ser a quantidade
+de componentes conectados
+(cada vez que entra no dfs)
+neste caso será
+
+
