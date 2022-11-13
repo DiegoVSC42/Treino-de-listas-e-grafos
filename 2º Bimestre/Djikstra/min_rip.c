@@ -46,15 +46,20 @@ Elemento *pull(Fila *fila){
         return retorno;
         */
         for(int i = 0; i < fila->tamanho;i++){
-            if (cont->distancia < aux->distancia){
-                cont = aux;   
+            if (cont->distancia < ant->distancia){
+                cont = ant;   
             }
-            aux = aux->proximo;
+            ant = ant->proximo;
         }
-        aux = fila->inicio;
-        for(int i = 0 ; i < fila->tamanho;i++){
+        ant = fila->inicio;
+        aux = ant->proximo;
+        while(ant != NULL)
             if(cont->distancia == aux->distancia && cont->valor == aux->valor){
-                aux 
+                ant->proximo = aux->proximo;
+                aux = aux->proximo;
+            }else{
+                ant = aux;
+                aux = aux->proximo;
             }
         }
         fila->tamanho--;
