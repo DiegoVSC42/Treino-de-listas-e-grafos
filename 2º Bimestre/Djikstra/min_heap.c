@@ -29,12 +29,18 @@ void push(Fila *fila,int valor,int distancia){
 }
 
 Elemento *pull(Fila *fila){
-    Elemento cont;
+    Elemento *cont;
     cont = malloc(sizeof(Elemento));
-    Elemento *ant;
-    ant = fila->inicio;
+    cont = fila->inicio;
     Elemento *aux;
-    aux = ant->proximo;
+    aux = malloc(sizeof(Elemento));
+    aux = fila->inicio;
+    Elemento *ant;
+    ant = malloc(sizeof(Elemento));
+    ant = fila->inicio;
+    Elemento *atual;
+    atual = malloc(sizeof(Elemento));
+    atual = ant->proximo;
     if(fila->tamanho > 0){
         /*
         // REMOVER DO INICIO
@@ -46,26 +52,22 @@ Elemento *pull(Fila *fila){
         return retorno;
         */
         for(int i = 0; i < fila->tamanho;i++){
-            if (cont->distancia < aux->distancia){
+            if (cont->distancia > aux->distancia){
                 cont = aux;   
             }
             aux = aux->proximo;
         }
-        aux = fila->inicio;
-        for(int i = 0 ; i < fila->tamanho;i++){
-            if(cont->distancia == aux->distancia && cont->valor == aux->valor){
-                aux 
-            }
+        while(ant != NULL){
+            ant = ant->proximo;
         }
         fila->tamanho--;
         return cont;
     }
-   
 }
 void mostra_fila(Fila *fila){
     Elemento *aux;
     aux = fila->inicio;
-    for(int i = 0; i < fila->tamanho; i++){
+    while(aux != NULL){
         printf("(%d %d)",aux->valor,aux->distancia);
         printf("\n");
         aux = aux->proximo;
@@ -84,13 +86,13 @@ int main(int argc, char const *argv[]){
 
     mostra_fila(fila_teste);
     elemento_teste = pull(fila_teste);
-    printf("\n1\n");
+    printf("\nValor %d |Distancia: %d\n",elemento_teste->valor,elemento_teste->distancia);
     mostra_fila(fila_teste);
     elemento_teste = pull(fila_teste);
-    printf("\n2\n");
+    printf("\nValor %d |Distancia: %d\n",elemento_teste->valor,elemento_teste->distancia);
     mostra_fila(fila_teste);
     elemento_teste = pull(fila_teste);
-    printf("\n3\n");
+    printf("\nValor %d |Distancia: %d\n",elemento_teste->valor,elemento_teste->distancia);
     mostra_fila(fila_teste);
     return 0;
 }
