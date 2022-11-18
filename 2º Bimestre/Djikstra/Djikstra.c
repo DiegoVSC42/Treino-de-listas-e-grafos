@@ -66,7 +66,7 @@ void descer_minimo(int indice){
     aux = heap[indice];
     heap[indice] = heap[menor];
     heap[menor] = aux;
-    descer_minimo(indice);
+    descer_minimo(menor);
 }
 
 int push(Elemento x){
@@ -103,8 +103,9 @@ int main(int argc, char const *argv[]){
 
     printf("\nDigite a quantidade de vertices e arestas : ");
     scanf("%d %d", &qtd_vertices,&qtd_arestas);
+    vertice = (Vertice*)calloc(qtd_vertices + 1,sizeof(Vertice));
     printf("\nDigite a origem, destino e distancia de cada aresta");
-    for(int i = 1; i < qtd_arestas ; i++){
+    for(int i = 0; i < qtd_arestas ; i++){
         scanf("%d %d %d",aresta[i].origem,aresta[i].destino, aresta[i].distancia);
         insere_aresta(vertice,aresta[i].origem,aresta[i].destino);
     }
