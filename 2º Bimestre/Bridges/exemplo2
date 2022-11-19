@@ -1,0 +1,96 @@
+7 9
+
+1 2
+1 3
+1 5
+2 3
+2 5
+3 4
+5 6
+5 7
+7 6
+
+lista_adj
+
+1: 2 3 5
+2: 1 3 5
+3: 1 2 4
+4: 3
+5: 1 2 6 7
+6: 5 7
+7: 5 6
+
+pergunta se é ponte quando acaba a lista de adj de alguem, ou seja, sai do dfs
+ou seja, verifica se 
+x.in < filho.lower, caso positivo então é uma ponte
+caso contrario:
+x.lower = min(x.lower,filho.lower)
+
+inicial = 5
+contador = 0
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         |   |   |   |   | 1 |   |   |  
+lower:      |   |   |   |   | 1 |   |   |  
+Visitado:   |   |   |   |   | 1 |   |   | 
+
+contador = 1
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 |   |   |   | 1 |   |   |  
+lower:      | 2 |   |   |   | 1 |   |   |  
+Visitado:   | 1 |   |   |   | 1 |   |   |
+
+contador = 3
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 |   |   | 1 |   |   |  
+lower:      | 2 | 3 |   |   | 1 |   |   |  
+Visitado:   | 1 | 1 |   |   | 1 |   |   |
+
+contador = 4
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 |   | 1 |   |   |  
+lower:      | 2 | 3 | 4 |   | 1 |   |   |  
+Visitado:   | 1 | 1 | 1 |   | 1 |   |   |
+
+3.lower = min(3.lower,1.in)
+
+contador = 4
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 |   | 1 |   |   |  
+lower:      | 2 | 3 | 2 |   | 1 |   |   |  
+Visitado:   | 1 | 1 | 1 |   | 1 |   |   |
+
+contador = 5
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 | 5 | 1 |   |   |  
+lower:      | 2 | 3 | 2 | 2 | 1 |   |   |  
+Visitado:   | 1 | 1 | 1 | 1 | 1 |   |   |
+
+3.in < 4.lower, entao possui ponte entre 3 e 4
+
+contador = 5
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 | 5 | 1 |   |   |  
+lower:      | 2 | 2 | 2 | 2 | 1 |   |   |  
+Visitado:   | 1 | 1 | 1 | 1 | 1 |   |   |
+
+
+contador = 6
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 | 5 | 1 | 6 |   |  
+lower:      | 2 | 2 | 2 | 2 | 1 | 6 |   |  
+Visitado:   | 1 | 1 | 1 | 1 | 1 | 1 |   |
+
+contador = 7
+            | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+In:         | 2 | 3 | 4 | 5 | 1 | 6 | 7 |  
+lower:      | 2 | 2 | 2 | 2 | 1 | 6 | 7 |  
+Visitado:   | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+
+6.in < 7.lower,
+pergunta se é ponte quando acaba a lista de adj de alguem, ou seja, sai do dfs
+ou seja, verifica se 
+x.in < filho.lower, caso positivo então é uma ponte
+caso contrario:
+x.lower = min(x.lower,filho.lower)
+atualiza o contador no momento que atribui na tabela
+sempre que sai de uma lista, atualiza o lower e ve se é ponte

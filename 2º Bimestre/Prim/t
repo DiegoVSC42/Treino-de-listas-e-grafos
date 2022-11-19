@@ -1,0 +1,16 @@
+escolhe a aresta com menor peso
+depois seleciona as arestas com menor peso conectada aos vertices que ja foram escolhidos
+sem repetir vertices
+nao pode formar ciclos 
+sempre seleciona vertices conectados
+
+
+resp exemplo
+
+8 5
+5 4
+8 6
+6 7
+8 3
+8 1
+1 2

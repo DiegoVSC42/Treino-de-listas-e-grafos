@@ -1,0 +1,9 @@
+custo min heap para inserir o^1
+custo para tirar nlogn
+
+-> criar lista_adj
+-> iniciar a min heap com a raiz escolhida e distancia 0
+-> o algoritmo possui as variaveis: current e distancia
+-> coloque valores nas distancias de todos os vertices como infinito
+->djikstra: enquanto tiver elementos na min heap e ele continua
+-> atual.distancia < lista_adj[i].distancia

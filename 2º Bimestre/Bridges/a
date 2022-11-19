@@ -1,0 +1,23 @@
+apos encontrar o backedge
+muda o lower da aresta que encontrou o backedge, 
+para o menor entre o edge atual e o outro conectado ao backedge
+caso nao seja um backedge faz um dfs de recursao
+se o lower do atual for maior que o in do cara que ta no backedge, entao tem uma ponte entre os 2
+
+
+x = atual, filho = elemento da lista_adj
+
+backedge
+
+cada vez que encontrar um backedge
+x.lower = min(x.lower,filho.in(elemento da lista))
+
+depois da saida do dfs
+
+pergunta se é ponte de forma que
+if x.in < filho.lower 
+    tem ponte
+
+foward:
+
+x.lower = min(x.lower,filho.lower)
