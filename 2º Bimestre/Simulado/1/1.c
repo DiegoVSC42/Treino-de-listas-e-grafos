@@ -1,71 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int count;
-
 typedef struct Vertice{
     int visitado;
+    int tamanho_lista;
     int lista_adj[1000];
-    int tam_lista_adj;
     int in;
     int lower;
 }Vertice;
-
 typedef struct Aresta{
     int origem;
     int destino;
 }Aresta;
 
-void insere_aresta(Vertice *vertice, int origem, int destino){
-    vertice[origem].lista_adj[vertice[origem].tam_lista_adj] = destino;
-    vertice[origem].tam_lista_adj++;
-    vertice[destino].lista_adj[vertice[destino].tam_lista_adj] = origem;
-    vertice[destino].tam_lista_adj++;
-}
+int count;
 
-int menor(int a, int b){
-    if(a < b){
-        return a;
-    }else{
-        return b;
-    }
-}
-int menor2(int a, int b){ return a < b ? a : b;}
+int min(int a, int b) { return a < b ? a : b; }
 
-void dfs(Vertice *vertice,int raiz,int pai){
+void dfs(Vertice *vertice,int raiz, int pai){
     int filho;
     vertice[raiz].visitado = 1;
     vertice[raiz].in = count;
     vertice[raiz].lower = count;
     count++;
-    for(int i = 0 ; i < vertice[raiz].tam_lista_adj;i++){
+    for(int i = 0 ; i < vertice[raiz].tamanho_lista ; i++){
         filho = vertice[raiz].lista_adj[i];
-        if(filho == pai){
-            continue;
-        }else{
+        if(filho != pai){
             if(vertice[filho].visitado == 1){
-                //back_edge
-                vertice[raiz].lower = menor2(vertice[raiz].lower,vertice[filho].in);
+                vertice[raiz].lower = min(vertice[raiz].lower, vertice[filho].in);
             }else{
                 dfs(vertice,filho,raiz);
                 if(vertice[raiz].in < vertice[filho].lower){
-                    // é ponte
-                    printf("\nPonte entre %d e %d",raiz,filho);
+                    printf("\nA estrada que conecta a cidade %d a %d nao pode entrar em reforma.",raiz,filho);
                 }
-                vertice[raiz].lower = menor2(vertice[raiz].lower,vertice[filho].lower);
+                vertice[raiz].lower = min(vertice[raiz].lower,vertice[filho].lower);
             }
         }
     }
-    
 }
 
-void mostra_lista(Vertice *vertice,int qtd_vertices){
-    for(int i = 1 ; i <= qtd_vertices;i++){
-        printf("\n%d -> ",i);
-        for(int j = 0 ; j < vertice[i].tam_lista_adj;j++){
-            printf("%d ", vertice[i].lista_adj[j]);
-        }
-    }
+void insere_aresta(Vertice *vertice, int origem, int destino){
+    vertice[origem].lista_adj[vertice[origem].tamanho_lista] = destino;
+    vertice[origem].tamanho_lista++;
+    vertice[destino].lista_adj[vertice[destino].tamanho_lista] = origem;
+    vertice[destino].tamanho_lista++;
 }
 
 int main(int argc, char const *argv[]){
@@ -86,4 +64,3 @@ int main(int argc, char const *argv[]){
     printf("\n");
     return 0;
 }
-
