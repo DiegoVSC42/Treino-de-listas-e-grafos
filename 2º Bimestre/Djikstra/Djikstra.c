@@ -21,6 +21,7 @@ typedef struct Elemento{
 
 Elemento heap[1000];
 int contador_heap = 0;
+int count = 1;
 
 int define_pai(int indice){
     return indice / 2;
@@ -84,7 +85,7 @@ Elemento pop(){
     }
     retorno = heap[1];
     heap[1] = heap[contador_heap];
-    contador_heap;
+    contador_heap--;
     descer_minimo(1);
     return retorno;
 }
@@ -95,20 +96,112 @@ void insere_aresta(Vertice *vertice, int origem, int destino){
     vertice[destino].tamanho_lista++;
 }
 
+void inicializar_distancias(Vertice *vertice,int qtd_vertices){
+    for(int i = 1 ; i <= qtd_vertices;i++){
+        vertice[i].distancia = 9999;
+    }
+}
+
+void djikstra(Vertice *vertice, int raiz,int qtd_vertices,Aresta *aresta,int qtd_arestas){
+    int quebra = 0;
+    int atual,distancia_atual;
+    Elemento elemento_aux;
+    inicializar_distancias(vertice,qtd_vertices);
+    vertice[raiz].distancia = 0;
+    elemento_aux.distancia = 0;
+    elemento_aux.vertice = raiz;
+    /*
+    for(int i = 1; i < qtd_vertices ; i++){
+        printf("\n Vertice %d | Distancia %d",i,vertice[i].distancia);
+    }
+    */
+    push(elemento_aux);
+    while(contador_heap > 0){
+        elemento_aux = pop();
+        atual = elemento_aux.vertice;
+        distancia_atual = elemento_aux.distancia;
+        //printf("\n Processando vertice %d Distancia atual  %d",atual,distancia_atual);
+        //printf("\n Atual %d ->", atual);
+        /*
+        for(int i = 0; i < vertice[atual].tamanho_lista;i++){
+            printf("%d ",vertice[atual].lista_adj[i]);
+        }
+        */
+        if (vertice[atual].tamanho_lista == 0){
+            return;         
+        }
+        for(int i = 0; i < vertice[atual].tamanho_lista;i++){
+            for(int j = 1; j <= qtd_arestas;j++){
+                //printf("\nAresta %d | Origem: %d | Destino: %d | Distancia %d ",j,aresta[j].origem,aresta[j].destino,aresta[j].distancia);
+
+                if(aresta[j].origem == atual && aresta[j].destino == vertice[atual].lista_adj[i]
+                || aresta[j].destino == atual && aresta[j].origem == vertice[atual].lista_adj[i]){
+                    //printf("\nENTREI IF 1\n");
+                    if(distancia_atual + aresta[j].distancia < vertice[vertice[atual].lista_adj[i]].distancia){
+                        //printf("\nENTREI IF 2\n");
+                        vertice[vertice[atual].lista_adj[i]].distancia = distancia_atual + aresta[j].distancia;
+                        elemento_aux.distancia = vertice[vertice[atual].lista_adj[i]].distancia;
+                        elemento_aux.vertice = vertice[atual].lista_adj[i];
+                        push(elemento_aux);
+                    }
+                }
+            }
+        }
+        /*
+        quebra++;
+        if(quebra == 10){
+            return;
+        }
+        printf("\nCONTADOR: %d\n ", contador_heap);
+        */
+    }
+}
+
+void mostra_arestas(Aresta *aresta, int qtd_arestas){
+    printf("\nGRAFO");
+    for(int i  = 1; i <= qtd_arestas; i++){
+        printf("\nOrigem: %d | Destino: %d | Distancia %d ",aresta[i].origem,aresta[i].destino,aresta[i].distancia);
+    }
+    printf("\n");
+}
+
+void mostra_lista(Vertice *vertice, int qtd_vertices){
+    printf("\nLISTA DE ADJACENCIAS");
+    for(int i = 1; i <= qtd_vertices; i++){
+        printf("\nVertice %d \nLista -> ", i);
+        for(int j = 0 ; j < vertice[i].tamanho_lista;j++){
+            printf("%d ",vertice[i].lista_adj[j]);
+        }
+    }
+    printf("\n");
+}
+
 int main(int argc, char const *argv[]){
     Vertice *vertice;
-    Aresta aresta[1000];
+    Aresta *aresta;
     Elemento aux;
+    int raiz;
     int qtd_vertices,qtd_arestas;
 
-    printf("\nDigite a quantidade de vertices e arestas : ");
+    //printf("\nDigite a quantidade de vertices e arestas : ");
     scanf("%d %d", &qtd_vertices,&qtd_arestas);
     vertice = (Vertice*)calloc(qtd_vertices + 1,sizeof(Vertice));
-    printf("\nDigite a origem, destino e distancia de cada aresta");
-    for(int i = 0; i < qtd_arestas ; i++){
-        scanf("%d %d %d",aresta[i].origem,aresta[i].destino, aresta[i].distancia);
+    aresta = (Aresta*)calloc(qtd_arestas + 1,sizeof(Aresta));
+    //printf("\nDigite a origem, destino e distancia de cada aresta\n");
+    for(int i = 1; i <= qtd_arestas ; i++){
+        scanf("%d %d %d",&aresta[i].origem,&aresta[i].destino, &aresta[i].distancia);
         insere_aresta(vertice,aresta[i].origem,aresta[i].destino);
     }
-    
+    //printf("\nDigite a raiz: ");
+    scanf("%d",&raiz);
+    mostra_arestas(aresta,qtd_arestas);
+    mostra_lista(vertice,qtd_vertices);
+    djikstra(vertice,raiz,qtd_vertices,aresta,qtd_arestas);
+    printf("\nRaiz: %d\n",raiz);
+    printf("\nDIJKSTRA");
+    for(int i = 1; i <= qtd_vertices ; i++){
+        printf("\nMenor distancia entre o %d e %d : %d",raiz,i,vertice[i].distancia);
+    }
+    printf("\n\n");
     return 0;
 }
